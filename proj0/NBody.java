@@ -11,21 +11,21 @@ public class NBody {
 		int nums = in.readInt();
 
 		in.readString();
-		StdAudio.play("audio/2001.mid");
+		//StdAudio.play("audio/2001.mid");
 
 
-		Planet[] Bodies = new Planet[nums];
-		for (int i = 0; i < Bodies.length; i++) {
+		Planet[] Planets = new Planet[nums];
+		for (int i = 0; i < Planets.length; i++) {
 			double xxPos = in.readDouble();
 			double yyPos = in.readDouble();
 			double xxVel = in.readDouble();
 			double yyVel = in.readDouble();
 			double mass = in.readDouble();
 			String imgFileName = "images/" + in.readString();
-			Bodies[i] = new Planet(xxPos, yyPos, xxVel, yyVel, mass, imgFileName);
+			Planets[i] = new Planet(xxPos, yyPos, xxVel, yyVel, mass, imgFileName);
 		}
 
-		return Bodies;
+		return Planets;
     }
 
     public static void main(String[] args) {
@@ -33,7 +33,7 @@ public class NBody {
     	double dt = Double.parseDouble(args[1]);
     	String Filename = args[2];
     	double radius = readRadius(Filename);
-    	Planet[] bodies = readBodies(Filename);
+    	Planet[] Planets = readBodies(Filename);
 
     	StdDraw.enableDoubleBuffering();
     	StdDraw.setScale(-radius, radius);
@@ -41,28 +41,28 @@ public class NBody {
     	StdDraw.picture(0, 0, "images/starfield.jpg");
     	
     	//draw stars
-    	for (int i = 0; i < bodies.length; i++) {
-    		Planet b = bodies[i];
-    		b.draw();
+    	for (int i = 0; i < Planets.length; i++) {
+    		Planet p = Planets[i];
+    		p.draw();
     	}
 
     	//animation
     	double time = 0;
     	while (time < T) {
-    		double[] xForces = new double[bodies.length];
-    		double[] yForces = new double[bodies.length];
-    		for (int i = 0; i < bodies.length; i++) {
-    			Planet b = bodies[i];
-    			xForces[i] = b.calcNetForceExertedByX(bodies);
-    			yForces[i] = b.calcNetForceExertedByY(bodies);
+    		double[] xForces = new double[Planets.length];
+    		double[] yForces = new double[Planets.length];
+    		for (int i = 0; i < Planets.length; i++) {
+    			Planet p = Planets[i];
+    			xForces[i] = p.calcNetForceExertedByX(Planets);
+    			yForces[i] = p.calcNetForceExertedByY(Planets);
     		}
-    		for (int i = 0; i < bodies.length; i++) {
-    			Planet b = bodies[i];
-    			b.update(dt, xForces[i], yForces[i]);
+    		for (int i = 0; i < Planets.length; i++) {
+    			Planet p = Planets[i];
+    			p.update(dt, xForces[i], yForces[i]);
     		}
     		StdDraw.picture( 0, 0, "/images/starfield.jpg" );
-    		for (int i = 0; i < bodies.length; i++) {
-    			bodies[i].draw();
+    		for (int i = 0; i < Planets.length; i++) {
+    			Planets[i].draw();
     		}
     		StdDraw.show();
     		StdDraw.pause(10);
