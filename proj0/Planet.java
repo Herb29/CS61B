@@ -25,43 +25,43 @@ public class Planet {
 		imgFileName = img;
 	}
 
-	public Planet(Planet b) {
-		xxPos = b.xxPos;
-		yyPos = b.yyPos;
-		xxVel = b.xxVel;
-		yyVel = b.yyVel;
-		mass = b.mass;
-		imgFileName = b.imgFileName;
+	public Planet(Planet p) {
+		xxPos = p.xxPos;
+		yyPos = p.yyPos;
+		xxVel = p.xxVel;
+		yyVel = p.yyVel;
+		mass = p.mass;
+		imgFileName = p.imgFileName;
 	}
 
-	public double calcDistance(Planet b) {
-		double dx = xxPos - b.xxPos;
-		double dy = yyPos - b.yyPos;
+	public double calcDistance(Planet p) {
+		double dx = xxPos - p.xxPos;
+		double dy = yyPos - p.yyPos;
 		return Math.sqrt(dx * dx + dy * dy);
 	}
 
-	public double calcForceExertedBy(Planet b) {
-		double r = calcDistance(b);
-		return G * mass * b.mass / (r * r);
+	public double calcForceExertedBy(Planet p) {
+		double r = calcDistance(p);
+		return G * mass * p.mass / (r * r);
 	}
 
-	public double calcForceExertedByX(Planet b) {
-		double r = calcDistance(b);
-		double f = calcForceExertedBy(b);
-		double dx = b.xxPos - xxPos;
+	public double calcForceExertedByX(Planet p) {
+		double r = calcDistance(p);
+		double f = calcForceExertedBy(p);
+		double dx = p.xxPos - xxPos;
 		return f * dx / r;
 	}
 
-	public double calcForceExertedByY(Planet b) {
-		double r = calcDistance(b);
-		double f = calcForceExertedBy(b);
-		double dy = b.yyPos - yyPos;
+	public double calcForceExertedByY(Planet p) {
+		double r = calcDistance(p);
+		double f = calcForceExertedBy(p);
+		double dy = p.yyPos - yyPos;
 		return f * dy / r;
 	}
 
-	public double calcNetForceExertedByX(Planet[] b) {
+	public double calcNetForceExertedByX(Planet[] p) {
 		double netForceX = 0;
-		for (Planet Planet : b) {
+		for (Planet Planet : p) {
 			if (equals(Planet)) {
 				continue;
 			}
@@ -70,9 +70,9 @@ public class Planet {
 		return netForceX;
 	}
 
-	public double calcNetForceExertedByY(Planet[] b) {
+	public double calcNetForceExertedByY(Planet[] p) {
 		double netForceY = 0;
-		for (Planet Planet : b) {
+		for (Planet Planet : p) {
 			if (equals(Planet)) {
 				continue;
 			}
